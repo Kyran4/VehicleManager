@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <ProjectReference Include="..\VehicleManager.Core\VehicleManager.Core.csproj" />
+    <ProjectReference Include="..\VehicleManager.Infrastructure\VehicleManager.Infrastructure.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Design-time only: lets `dotnet ef` create migrations using this project as the startup project. -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

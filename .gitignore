@@ -1,0 +1,11 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+TestResults/
+# Local configuration / secrets - never commit
+appsettings.Local.json
+appsettings.*.local.json
+secrets.json
+*.bak

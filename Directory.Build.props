@@ -1,0 +1,9 @@
+<Project>
+  <!-- Shared settings. Targets .NET 9. To use another version, change TargetFramework here
+       (and the EF Core package versions in the project files to match). -->
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+</Project>
