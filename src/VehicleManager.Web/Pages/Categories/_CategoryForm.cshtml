@@ -1,0 +1,33 @@
+@model VehicleManager.Web.Pages.Categories.CategoryForm
+
+<div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+<div class="mb-3">
+    <label asp-for="Name" class="form-label"></label>
+    <input asp-for="Name" class="form-control" maxlength="50" autocomplete="off" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="MinWeightKg" class="form-label"></label>
+    <input asp-for="MinWeightKg" type="text" class="form-control" inputmode="decimal" autocomplete="off" />
+    <div class="form-text">
+        The category runs from this weight up to (but not including) the next category's starting weight.
+        The lowest category must start at 0.
+    </div>
+    <span asp-validation-for="MinWeightKg" class="text-danger"></span>
+</div>
+
+<fieldset class="mb-3">
+    <legend class="form-label fs-6">@Html.DisplayNameFor(m => m.IconKey)</legend>
+    <div class="icon-picker">
+        @foreach (var icon in CategoryIcons.All)
+        {
+            <input type="radio" class="btn-check" asp-for="IconKey" value="@icon.Key" id="icon-@icon.Key" />
+            <label class="btn btn-outline-secondary" for="icon-@icon.Key">
+                <span class="category-icon" aria-hidden="true">@icon.Glyph</span> @icon.Label
+            </label>
+        }
+    </div>
+    <span asp-validation-for="IconKey" class="text-danger"></span>
+</fieldset>

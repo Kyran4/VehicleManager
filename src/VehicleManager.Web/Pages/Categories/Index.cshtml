@@ -1,0 +1,43 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Weight categories</h1>
+    <a class="btn btn-primary" asp-page="Create">Add category</a>
+</div>
+
+<div class="alert alert-secondary">
+    Each category starts at its <strong>From</strong> weight (inclusive) and ends just before the next category begins,
+    so a vehicle on a boundary, e.g. exactly 500.00 kg, belongs only to the category that starts there.
+    Ranges can never overlap or leave gaps.
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">From (kg, inclusive)</th>
+                <th scope="col">To (kg, exclusive)</th>
+                <th scope="col"><span class="visually-hidden">Actions</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var band in Model.Bands)
+            {
+                <tr>
+                    <td><partial name="_CategoryBadge" model="band.Category" /></td>
+                    <td>@band.FromKg.ToString("N2")</td>
+                    <td>@(band.ToKgExclusive is { } to ? to.ToString("N2") : "and above")</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary" asp-page="Edit" asp-route-id="@band.Category.Id">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" asp-page="Delete" asp-route-id="@band.Category.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

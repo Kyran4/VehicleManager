@@ -1,0 +1,29 @@
+@page "{id:int}"
+@model DeleteModel
+@{
+    ViewData["Title"] = "Delete category";
+    var band = Model.Band!;
+}
+
+<h1 class="h3 mb-3">Delete category</h1>
+
+<div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+<p>Are you sure you want to delete <strong><partial name="_CategoryBadge" model="band.Category" /></strong>?</p>
+
+<div class="alert alert-secondary">
+    @if (band.FromKg == 0m)
+    {
+        <text>This is the lowest category, so the next category will be extended down to 0 kg to cover its weights.</text>
+    }
+    else
+    {
+        <text>Vehicles in this category will move to the category below it.</text>
+    }
+    Vehicle records are not changed - their category is always calculated from their weight.
+</div>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a class="btn btn-link" asp-page="Index">Cancel</a>
+</form>
