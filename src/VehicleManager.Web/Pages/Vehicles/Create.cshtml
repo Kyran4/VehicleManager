@@ -1,0 +1,45 @@
+@page
+@model VehicleManager.Web.Pages.Vehicles.CreateModel
+@{
+    ViewData["Title"] = "Add vehicle";
+}
+
+<h1 class="h3 mb-3">Add vehicle</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" novalidate>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Input.OwnerName" class="form-label"></label>
+                <input asp-for="Input.OwnerName" class="form-control" maxlength="100" autocomplete="off" />
+                <span asp-validation-for="Input.OwnerName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.ManufacturerId" class="form-label"></label>
+                <select asp-for="Input.ManufacturerId" asp-items="Model.Manufacturers" class="form-select">
+                    <option value="">Select a manufacturer...</option>
+                </select>
+                <span asp-validation-for="Input.ManufacturerId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.YearOfManufacture" class="form-label"></label>
+                <input asp-for="Input.YearOfManufacture" class="form-control" inputmode="numeric" autocomplete="off" />
+                <span asp-validation-for="Input.YearOfManufacture" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.WeightKg" class="form-label"></label>
+                <input asp-for="Input.WeightKg" type="text" class="form-control" inputmode="decimal" autocomplete="off" />
+                <div class="form-text">Up to two decimal places, e.g. 1850.75</div>
+                <span asp-validation-for="Input.WeightKg" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a class="btn btn-link" asp-page="/Index">Cancel</a>
+        </form>
+    </div>
+</div>
