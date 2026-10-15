@@ -1,0 +1,8 @@
+@model VehicleCategory
+@{
+    var icon = CategoryIcons.Find(Model.IconKey);
+}
+<span title="@Model.Name">
+    <span class="category-icon" role="img" aria-label="@Model.Name">@(icon?.Glyph ?? "❓")</span>
+    <span class="ms-1">@Model.Name</span>
+</span>

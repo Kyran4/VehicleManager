@@ -1,0 +1,69 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Vehicles";
+}
+
+@functions {
+    private static readonly (VehicleSortField Field, string Label)[] Columns =
+    [
+        (VehicleSortField.Owner, "Owner's name"),
+        (VehicleSortField.Manufacturer, "Manufacturer"),
+        (VehicleSortField.Year, "Year"),
+        (VehicleSortField.Weight, "Weight (kg)"),
+    ];
+
+    private bool IsActive(VehicleSortField field) => Model.SortOptions.Field == field;
+    private string NextDirection(VehicleSortField field) => IsActive(field) && !Model.SortOptions.Descending ? "desc" : "asc";
+    private string AriaSort(VehicleSortField field) =>
+        !IsActive(field) ? "none" : Model.SortOptions.Descending ? "descending" : "ascending";
+    private string Arrow(VehicleSortField field) =>
+        !IsActive(field) ? "" : Model.SortOptions.Descending ? "▼" : "▲";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Vehicles</h1>
+    <a class="btn btn-primary" asp-page="/Vehicles/Create">Add vehicle</a>
+</div>
+
+@if (Model.Items.Count == 0)
+{
+    <div class="alert alert-info">No vehicles yet. Add the first one.</div>
+}
+else
+{
+    var activeLabel = Columns.First(c => c.Field == Model.SortOptions.Field).Label;
+    <p class="text-muted small">
+        Sorted by <strong>@activeLabel</strong> (@(Model.SortOptions.Descending ? "descending" : "ascending")).
+        Click a column heading to sort.
+    </p>
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    @foreach (var column in Columns)
+                    {
+                        <th scope="col" aria-sort="@AriaSort(column.Field)">
+                            <a class="text-decoration-none" asp-page="/Index"
+                               asp-route-sort="@column.Field.ToString()"
+                               asp-route-dir="@NextDirection(column.Field)">@column.Label @Arrow(column.Field)</a>
+                        </th>
+                    }
+                    <th scope="col">Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.OwnerName</td>
+                        <td>@item.Manufacturer</td>
+                        <td>@item.YearOfManufacture</td>
+                        <td>@item.WeightKg.ToString("N2")</td>
+                        <td><partial name="_CategoryBadge" model="item.Category" /></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
